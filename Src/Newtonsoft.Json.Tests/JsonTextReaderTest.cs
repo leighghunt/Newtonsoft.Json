@@ -122,6 +122,45 @@ namespace Newtonsoft.Json.Tests
         }
 
         [Test]
+        public void ReadCurvedQuotes1()
+        {
+            string json = @"{""TEST"":""This sentance contains ‘curved’ single quotes""}";
+
+            JsonTextReader jsonTextReader = new JsonTextReader(new StringReader(json));
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+
+            Assert.AreEqual(@"This sentance contains ‘curved’ single quotes", jsonTextReader.Value);
+        }
+
+        [Test]
+        public void ReadCurvedQuotes2()
+        {
+            string json = @"{""TEST"":""This sentance contains “curved” double quotes""}";
+
+            JsonTextReader jsonTextReader = new JsonTextReader(new StringReader(json));
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+
+            Assert.AreEqual(@"This sentance contains “curved” double quotes", jsonTextReader.Value);
+        }
+
+        [Test]
+        public void ReadCurvedQuotes3()
+        {
+            string json = @"{""TEST"":""This sentance contains weird \u02BA quote""}";
+
+            JsonTextReader jsonTextReader = new JsonTextReader(new StringReader(json));
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+            jsonTextReader.Read();
+
+            Assert.AreEqual("This sentance contains weird \u02BA quote", jsonTextReader.Value);
+        }
+
+        [Test]
         public void ReadMultilineString()
         {
             string json = @"""first line

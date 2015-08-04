@@ -6456,6 +6456,69 @@ Path '', line 1, position 1.");
         }
 
         [Test]
+        public void SerializeObjectWithQuotes1()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "UNQUOTED VALUE");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+
+        [Test]
+        public void SerializeObjectWithQuotes2()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "\"QUOTED VALUE\"");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+        
+        [Test]
+        public void SerializeObjectWithQuotes3()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "'QUOTED VALUE'");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+
+        	
+
+        [Test]
+        public void SerializeObjectWithQuotes4()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "“QUOTED VALUE”");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+
+        [Test]
+        public void SerializeObjectWithQuotes5()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "‘QUOTED VALUE’");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+
+        [Test]
+        public void SerializeObjectWithQuotes6()
+        {
+            KeyValuePair<string, string> input = new KeyValuePair<string, string>("TEST", "WEIRD QUOTE \u02BA");
+            string json = JsonConvert.SerializeObject(input);
+            KeyValuePair<string, string> output = JsonConvert.DeserializeObject<KeyValuePair<string, string>>(json);
+
+            Assert.AreEqual(input, output);
+        }
+
+
+        [Test]
         public void SerializeUriWithSlashes()
         {
             string input = @"http://tes/?a=b\\c&d=e\";
